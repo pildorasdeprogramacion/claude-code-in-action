@@ -33,6 +33,10 @@ Tests: `uv run python manage.py test` (13 tests deben pasar).
 Reseñas, cupones, wishlist y checkout quedan pendientes para implementarlos en
 vivo con Claude Code. Ver `CLAUDE.md` y el laboratorio en `laboratorio/`.
 
+## Diapositivas de la clase
+
+[`diapositivas-steering-long-sessions.pdf`](diapositivas-steering-long-sessions.pdf): las 27 diapositivas de la clase (plan mode, `/compact`, rewind y `/goal`).
+
 ## Laboratorio: Steering long sessions
 
 `laboratorio/LAB_steering_long_sessions.md` es la guía paso a paso del live:

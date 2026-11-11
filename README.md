@@ -4,9 +4,9 @@ Proyectos y laboratorios del curso **Claude Code in Action** de Píldoras de Pro
 Cada clase con laboratorio tiene su propia carpeta, autocontenida: se clona el repo,
 se entra a la carpeta de la clase y se sigue su guía.
 
-| Clase | Tema | Carpeta |
-|---|---|---|
-| 1 | Steering long sessions: plan mode, `/compact`, rewind y `/goal` | [`clase-01-steering-long-sessions`](clase-01-steering-long-sessions/) |
+| Clase | Tema | Carpeta | Diapositivas |
+|---|---|---|---|
+| 1 | Steering long sessions: plan mode, `/compact`, rewind y `/goal` | [`clase-01-steering-long-sessions`](clase-01-steering-long-sessions/) | [PDF](clase-01-steering-long-sessions/diapositivas-steering-long-sessions.pdf) |
 
 ## Requisitos
 
