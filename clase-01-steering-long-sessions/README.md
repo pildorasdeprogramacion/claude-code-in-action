@@ -35,12 +35,13 @@ vivo con Claude Code. Ver `CLAUDE.md` y el laboratorio en `laboratorio/`.
 
 ## Diapositivas de la clase
 
-[`diapositivas-steering-long-sessions.pdf`](diapositivas-steering-long-sessions.pdf): las 27 diapositivas de la clase (plan mode, `/compact`, rewind y `/goal`).
+[`diapositivas-steering-long-sessions.pdf`](diapositivas-steering-long-sessions.pdf): las diapositivas de la clase (plan mode, `/compact` y rewind).
 
 ## Laboratorio: Steering long sessions
 
 `laboratorio/LAB_steering_long_sessions.md` es la guía paso a paso del live:
-plan mode, `/compact` (con y sin instrucciones), rewind y `/goal`, todo sobre
-este proyecto. `laboratorio/tests_cupones.py` son los tests que usa `/goal`.
+plan mode, `/compact` (con y sin instrucciones) y rewind, todo sobre este
+proyecto. `laboratorio/tests_cupones.py` son tests que fallan a propósito: su
+error es el dato literal que se pone a prueba con `/compact`.
 
 Fotos de producto: Unsplash (uso demo).

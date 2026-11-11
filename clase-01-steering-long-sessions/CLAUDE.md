@@ -3,7 +3,7 @@
 ## Sobre el proyecto
 Tienda demo construida con Django 5+ y Bootstrap 5.3 (vía CDN). Base de datos SQLite.
 Es el laboratorio de los lives de Claude Code (workflow Explore → Plan → Code → Commit
-y, en esta entrega, Steering long sessions: plan mode, /compact, rewind y /goal).
+y, en esta entrega, Steering long sessions: plan mode, /compact y rewind).
 
 ## Entorno
 El proyecto usa **uv**. Nunca uses `pip install` ni `python` a secas: todo va con `uv run`.

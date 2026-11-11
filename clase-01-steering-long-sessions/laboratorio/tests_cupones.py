@@ -1,8 +1,8 @@
 """Tests de la feature "cupón de descuento en el carrito".
 
 Estos tests definen el contrato de la feature ANTES de implementarla.
-Se usan en el laboratorio con /goal: Claude tiene que hacerlos pasar
-sin modificar este archivo.
+En el laboratorio de esta clase fallan a propósito: su error es el dato literal
+que se pone a prueba con /compact. La feature queda pendiente.
 
 Contrato que describen:
 - POST a la url con nombre "tienda:carrito_cupon" con {"codigo": "..."} aplica un cupón.

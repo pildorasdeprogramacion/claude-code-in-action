@@ -1,12 +1,11 @@
 # Laboratorio · Clase 1 · Steering long sessions con Claude Code
 
 **Proyecto:** PildoraStore (Django + Bootstrap 5, gestionado con uv)
-**Duración estimada:** 90–120 min
+**Duración estimada:** 70–90 min
 **Curso:** Claude Code in Action (Píldoras de Programación)
-**Qué vamos a practicar:** plan mode → `/compact` sin instrucciones → rewind → `/compact` con instrucciones → `/goal`
+**Qué vamos a practicar:** plan mode → `/compact` sin instrucciones → rewind → `/compact` con instrucciones
 
-> Requiere Claude Code **v2.1.139 o superior** (`/goal` no existe en versiones anteriores).
-> Verifícalo con `claude --version`.
+> Usa Claude Code actualizado (verifícalo con `claude --version`).
 
 La idea del laboratorio no es "terminar features": es **ver con nuestros propios ojos**
 qué pasa en una sesión larga y cómo la dirigimos. Por eso cada fase termina con un
@@ -193,7 +192,7 @@ Sin abrir archivos: lista las rutas exactas de los archivos que tocamos para las
 
 ```bash
 git status     # limpio (excepto tienda/tests_cupones.py que aún no commiteamos)
-git add tienda/tests_cupones.py && git commit -m "test: contrato de cupones (aún sin implementar)"
+git add tienda/tests_cupones.py && git commit -m "test: cupones (aún sin implementar)"
 ```
 
 Anota en Claude Code el número del prompt que vas a enviar: el rewind lista los prompts, así lo vas a ubicar fácil.
@@ -289,66 +288,7 @@ Repite las tres preguntas de la Fase 2.3 y completa la columna derecha de la tab
 
 ---
 
-## Fase 5 · `/goal`: soltar el timón con condiciones (25 min)
-
-**Concepto:** describes "terminado", no los pasos. Otro modelo (pequeño y rápido) decide si se cumplió.
-**Feature:** cupones de descuento. **Los tests ya definen la feature** (`tienda/tests_cupones.py`).
-
-### 5.1 Leer el contrato
-
-Abre `tienda/tests_cupones.py` y lee qué exige: dos urls con nombre
-(`tienda:carrito_cupon` y `tienda:carrito_cupon_quitar`), el código `PILDORA10`
-descuenta 10 %, el mensaje "no es válido", minúsculas aceptadas, el cupón vive en la sesión.
-
-Esto es lo importante: **nosotros no le vamos a decir a Claude cómo hacerlo**. Los
-tests son la definición de "terminado".
-
-### 5.2 Escribir la condición (las tres partes)
-
-Antes de enviarla, identifícalas:
-
-- **Estado final medible:** los tests terminan con exit code 0.
-- **Prueba explícita:** el comando concreto y su salida en la conversación.
-- **Restricciones:** no tocar los tests, no crear modelos ni migraciones.
-
-```
-/goal `uv run python manage.py test` termina con exit code 0 e incluye los 5 tests de tienda.tests_cupones en verde; la salida completa del comando aparece en la conversación; `git diff --stat tienda/tests.py tienda/tests_cupones.py` no muestra cambios; y no se creó ningún archivo nuevo en tienda/migrations/. Detente después de 15 turnos si no lo logras.
-```
-
-> Nota sobre permisos: `/goal` no cambia tu modo de permisos. En modo manual Claude te va a
-> pedir aprobación para correr comandos que no estén permitidos; si quieres verlo correr
-> solo, activa auto mode (`Shift+Tab`) antes de lanzar el goal.
-
-### 5.3 Mientras corre
-
-- Arriba aparece el indicador **◎ /goal active**.
-- Después de cada turno el evaluador deja su veredicto; pulsa `Ctrl+O` para ver **la razón**.
-- `/goal` sin argumentos muestra turnos, tokens y la última razón del evaluador.
-- `/goal clear` lo cancela si se te va de las manos.
-
-> **Qué observar:** cuántos turnos necesitó, y **qué dijo el evaluador** en los turnos
-> que devolvió "no": normalmente algo como "los tests aún no pasan" o "no se ve la salida
-> del comando en la conversación". Esa segunda razón es la clave: el evaluador solo ve
-> lo que Claude muestra, no corre nada por su cuenta.
-
-### 5.4 Verificar a mano (siempre)
-
-El evaluador dijo "cumplido". Ahora lo comprobamos nosotros, como si fuera un PR de un compañero:
-
-```bash
-uv run python manage.py test               # 18+ tests en verde
-git diff --stat tienda/tests.py tienda/tests_cupones.py   # vacío
-git status                                 # sin migraciones nuevas
-uv run python manage.py runserver          # agrega algo al carrito y prueba PILDORA10
-```
-
-```bash
-git add -A && git commit -m "feat: cupones de descuento (/goal)"
-```
-
----
-
-## Fase 6 · Cierre (5 min)
+## Fase 5 · Cierre (5 min)
 
 Repasen la tabla de la Fase 2/4 y el `git log`:
 
@@ -356,23 +296,26 @@ Repasen la tabla de la Fase 2/4 y el `git log`:
 git log --oneline
 ```
 
-Cuatro commits, cuatro hábitos:
+Tres hábitos, cada uno con su evidencia:
 
 | Commit | Hábito | Qué vimos |
 |---|---|---|
 | reseñas | plan mode | 3 vueltas al plan, cero líneas de código desperdiciadas |
 | wishlist | rewind | el desvío desapareció del contexto; la migración por bash no |
 | (conversación) | `/compact` | sin instrucciones parafrasea; con instrucciones conserva literal |
-| cupones | `/goal` | los tests fueron la definición de "terminado"; otro modelo evaluó |
 
 **La conclusión del capítulo:** cuanto más corriges en el camino, más se alarga todo.
 La solución no es corregir más, sino corregir mejor y en el momento correcto.
 
+> **Próxima clase:** soltar el timón con condiciones (`/goal`, `/loop`) y varias sesiones en paralelo (worktrees).
+
 ### Tarea
 
-1. Implementa el checkout (el botón "Ir a pagar") **solo con plan mode + /goal**. Primero
-   escribe los tests, después el goal. Sube el `git log` y la condición que usaste.
-2. Prueba `/rewind` → **Summarize from here** en una sesión tuya y cuenta cuánto bajó `/context`.
+1. Implementa el checkout (el botón "Ir a pagar") **empezando en plan mode**: itera el plan
+   al menos 3 vueltas antes de aprobarlo. Sube el `git log` y las correcciones que le hiciste al plan.
+2. Si en el camino Claude se desvía, vuelve con `/rewind` en vez de corregir a punta de prompts,
+   y anota qué revirtió y qué tuviste que limpiar a mano.
+3. Prueba `/rewind` → **Summarize from here** en una sesión tuya y cuenta cuánto bajó `/context`.
 
 ---
 
@@ -383,10 +326,6 @@ La solución no es corregir más, sino corregir mejor y en el momento correcto.
 - **El menú de rewind no muestra "Restore code"**: solo aparece si hay ediciones de archivo
   rastreadas después de ese checkpoint. Si Claude hizo todo por bash, solo verás
   "Restore conversation" → usa `git checkout -- .` y `git clean -fd` para el código.
-- **`/goal` no existe**: versión anterior a 2.1.139. Actualiza Claude Code.
-- **El goal termina "cumplido" pero los tests no pasan**: el evaluador solo mira la
-  conversación. Es exactamente la lección de 5.4: verificar siempre a mano. Vuelve a lanzar
-  el goal pidiendo que la salida completa del comando aparezca en la conversación.
 - **Las respuestas de la Fase 2 salieron perfectas**: pasa. Aun así compara en la Fase 4 la
   *longitud* y *precisión*; y recuerda que el resumen guiado es reproducible, el genérico no.
 - **`/compact` no baja `/context` casi nada**: si la sesión es corta el resumen pesa parecido

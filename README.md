@@ -6,7 +6,7 @@ se entra a la carpeta de la clase y se sigue su guía.
 
 | Clase | Tema | Carpeta | Diapositivas |
 |---|---|---|---|
-| 1 | Steering long sessions: plan mode, `/compact`, rewind y `/goal` | [`clase-01-steering-long-sessions`](clase-01-steering-long-sessions/) | [PDF](clase-01-steering-long-sessions/diapositivas-steering-long-sessions.pdf) |
+| 1 | Steering long sessions: plan mode, `/compact` y rewind | [`clase-01-steering-long-sessions`](clase-01-steering-long-sessions/) | [PDF](clase-01-steering-long-sessions/diapositivas-steering-long-sessions.pdf) |
 
 ## Requisitos
 
