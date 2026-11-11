@@ -1,0 +1,81 @@
+{% extends "tienda/base.html" %}
+{% block titulo %}{% if categoria_actual %}{{ categoria_actual.nombre }}{% else %}Catálogo{% endif %}{% endblock %}
+{% block contenido %}
+
+<div class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb small">
+      <li class="breadcrumb-item"><a href="{% url 'tienda:home' %}">Inicio</a></li>
+      <li class="breadcrumb-item {% if not categoria_actual %}active{% endif %}">
+        {% if categoria_actual %}<a href="{% url 'tienda:catalogo' %}">Catálogo</a>{% else %}Catálogo{% endif %}
+      </li>
+      {% if categoria_actual %}
+        <li class="breadcrumb-item active">{{ categoria_actual.nombre }}</li>
+      {% endif %}
+    </ol>
+  </nav>
+
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+    <h1 class="h3 fw-bold mb-0">
+      {% if categoria_actual %}
+        <i class="bi bi-{{ categoria_actual.icono }} me-2"></i>{{ categoria_actual.nombre }}
+      {% elif busqueda %}
+        Resultados para “{{ busqueda }}”
+      {% else %}
+        Todo el catálogo
+      {% endif %}
+      <span class="text-muted fs-6 fw-normal">({{ pagina.paginator.count }} producto{{ pagina.paginator.count|pluralize }})</span>
+    </h1>
+    <div class="btn-group" role="group" aria-label="Filtrar por categoría">
+      <a href="{% url 'tienda:catalogo' %}" class="btn btn-sm {% if not categoria_actual %}btn-dark{% else %}btn-outline-dark{% endif %}">Todas</a>
+      {% for cat in categorias_nav %}
+        <a href="{% url 'tienda:catalogo' %}?categoria={{ cat.slug }}"
+           class="btn btn-sm {% if categoria_actual.slug == cat.slug %}btn-dark{% else %}btn-outline-dark{% endif %}">
+          {{ cat.nombre }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+    {% for producto in productos %}
+      {% include "tienda/_card_producto.html" %}
+    {% empty %}
+      <div class="col-12">
+        <div class="text-center py-5 bg-white rounded-3 shadow-sm">
+          <i class="bi bi-search fs-1 text-muted"></i>
+          <p class="lead mt-3 mb-1">No encontramos productos.</p>
+          <p class="text-muted">Prueba con otra búsqueda o <a href="{% url 'tienda:catalogo' %}">mira todo el catálogo</a>.</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if pagina.paginator.num_pages > 1 %}
+    <nav aria-label="Paginación del catálogo" class="mt-4">
+      <ul class="pagination justify-content-center">
+        <li class="page-item {% if not pagina.has_previous %}disabled{% endif %}">
+          {% if pagina.has_previous %}
+            <a class="page-link" href="?{{ parametros }}&page={{ pagina.previous_page_number }}" aria-label="Anterior">&laquo;</a>
+          {% else %}
+            <span class="page-link" aria-label="Anterior">&laquo;</span>
+          {% endif %}
+        </li>
+        {% for num in pagina.paginator.page_range %}
+          <li class="page-item {% if num == pagina.number %}active{% endif %}">
+            <a class="page-link" href="?{{ parametros }}&page={{ num }}">{{ num }}</a>
+          </li>
+        {% endfor %}
+        <li class="page-item {% if not pagina.has_next %}disabled{% endif %}">
+          {% if pagina.has_next %}
+            <a class="page-link" href="?{{ parametros }}&page={{ pagina.next_page_number }}" aria-label="Siguiente">&raquo;</a>
+          {% else %}
+            <span class="page-link" aria-label="Siguiente">&raquo;</span>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+  {% endif %}
+</div>
+
+{% endblock %}

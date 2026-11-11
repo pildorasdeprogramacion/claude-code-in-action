@@ -1,0 +1,68 @@
+{% extends "tienda/base.html" %}
+{% block titulo %}Inicio{% endblock %}
+{% block contenido %}
+
+<section class="hero text-white py-5 mb-5">
+  <div class="container py-4">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <h1 class="display-4 fw-bold">Tecnología, estilo y cuidado personal en un solo lugar</h1>
+        <p class="lead opacity-75 mb-4">
+          Descubre productos seleccionados con envío rápido y garantía.
+          Esta tienda es el laboratorio oficial del live de Claude Code.
+        </p>
+        <a href="{% url 'tienda:catalogo' %}" class="btn btn-light btn-lg me-2">
+          <i class="bi bi-grid me-1"></i>Ver catálogo
+        </a>
+        <a href="{% url 'tienda:catalogo' %}?categoria=tecnologia" class="btn btn-outline-light btn-lg">
+          <i class="bi bi-cpu me-1"></i>Tecnología
+        </a>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block text-center">
+        <i class="bi bi-bag-heart" style="font-size: 11rem; opacity: .35;"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container mb-5">
+  <div class="d-flex justify-content-between align-items-end mb-3">
+    <h2 class="h3 fw-bold mb-0"><i class="bi bi-star-fill text-warning me-2"></i>Productos destacados</h2>
+    <a href="{% url 'tienda:catalogo' %}" class="text-decoration-none">Ver todo <i class="bi bi-arrow-right"></i></a>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+    {% for producto in destacados %}
+      {% include "tienda/_card_producto.html" %}
+    {% empty %}
+      <p class="text-muted">Aún no hay productos destacados.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container mb-5">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="p-4 bg-white rounded-3 shadow-sm h-100 text-center">
+        <i class="bi bi-truck fs-1 text-primary"></i>
+        <h5 class="mt-2">Envío en 24-48 h</h5>
+        <p class="text-muted small mb-0">A todo el país, gratis desde $100.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-4 bg-white rounded-3 shadow-sm h-100 text-center">
+        <i class="bi bi-shield-check fs-1 text-primary"></i>
+        <h5 class="mt-2">Garantía real</h5>
+        <p class="text-muted small mb-0">30 días de devolución sin preguntas.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-4 bg-white rounded-3 shadow-sm h-100 text-center">
+        <i class="bi bi-credit-card fs-1 text-primary"></i>
+        <h5 class="mt-2">Pago seguro</h5>
+        <p class="text-muted small mb-0">Tarjetas, PSE y contraentrega.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

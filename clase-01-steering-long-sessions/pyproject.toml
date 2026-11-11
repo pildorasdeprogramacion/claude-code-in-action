@@ -1,0 +1,12 @@
+[project]
+name = "pildorastore"
+version = "0.2.0"
+description = "Tienda demo en Django + Bootstrap 5 — laboratorio de Claude Code (Píldoras de Programación)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.0",
+]
+
+[tool.uv]
+package = false
